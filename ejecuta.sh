@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Cambia al directorio donde está tu repositorio
-cd /ruta/a/tu/repo
+cd /var/www/html/git_aws
 
 # Realiza un pull desde la rama main
 git pull origin main
