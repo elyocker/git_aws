@@ -23,4 +23,4 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.HOST_DNS }} 'bash -s' < /var/www/html/deploy_script.sh
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.HOST_DNS }} 'bash -s' < deploy_script.sh
