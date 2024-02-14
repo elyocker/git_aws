@@ -7,14 +7,14 @@ on:
 
 jobs:
   deploy:
-    runs-on: amazon-linux-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v2
 
       - name: Install SSH Client
-        run: sudo yum-get install openssh-client
+        run: sudo apt-get install openssh-client
       
       - name: Set up SSH
         uses: webfactory/ssh-agent@v0.5.3
