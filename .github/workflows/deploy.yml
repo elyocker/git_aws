@@ -1,4 +1,4 @@
-name: Deploy on Main Push
+name: Deploy to EC2
 
 on:
   push:
@@ -10,16 +10,17 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Repository
-      uses: actions/checkout@v2
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Install SSH Client
+        run: sudo apt-get install openssh-client
       
-    - name: SSH into EC2 Instance and deploy
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST_DNS }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.EC2_SSH_KEY }}
-        script: |
-          cd /path/to/your/repo
-          git pull origin main
-          # Additional deployment steps go here
+      - name: Set up SSH
+        uses: webfactory/ssh-agent@v0.5.3
+        with:
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: Deploy to EC2
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@${{ secrets.HOST_DNS }} 'bash -s' < deploy_script.sh
